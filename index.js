@@ -4,6 +4,8 @@ const port = process.env.PORT;
 const db = require("./config/mongoose");
 const app = express();
 
+app.use(express.json());
+
 app.use("/", require("./routes"));
 
 app.listen(port, (err) => {
