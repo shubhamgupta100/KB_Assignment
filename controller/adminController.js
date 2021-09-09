@@ -39,17 +39,25 @@ module.exports.products = async function (req, res) {
 };
 
 module.exports.productList = async function (req, res) {
-  Product.find({}, (err, products) => {
-    if (err) {
+  Product.find()
+    .select("id , productName categoryName")
+    .exec()
+    .then((docs) => {
+      return res.status(200).json({
+        count: docs.length,
+        productList: docs.map((doc) => {
+          return {
+            _id: doc._id,
+            productName: doc.productName,
+            categoryName: doc.categoryName,
+          };
+        }),
+      });
+    })
+    .catch((err) => {
       return res.status(500).json({
         error: err,
+        msg: "Error in fetching products",
       });
-    } else {
-      console.log(products);
-      return res.status(200).json({
-        products,
-        msg: "Task done",
-      });
-    }
-  });
+    });
 };
