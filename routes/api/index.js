@@ -9,6 +9,8 @@ router.post("/users/signin", authController.signin);
 
 // User placing order
 router.post("/users/order", orderController.order);
+router.get("/users/orders", orderController.allOrder);
+router.get("/users/orders/:orderId", orderController.particularOrder);
 // Admin
 router.post("/admin/addProduct", adminController.products);
 router.get("/admin/productList", adminController.productList);
