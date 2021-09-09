@@ -4,7 +4,7 @@ const Cart = require("../models/cart");
 module.exports.addCart = async function (req, res) {
   Product.findById(req.body.productId)
     .then((prod) => {
-      if (!prod) {
+      if (prod === "") {
         return res.status(404).json({
           msg: "Product not found",
         });
